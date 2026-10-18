@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="fw-bold mb-3">My Booking History</h3>
+{% if bookings %}
+    <div class="table-responsive bg-white rounded shadow-sm p-3">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Date</th>
+                    <th>Tractor Model</th>
+                    <th>Work Type</th>
+                    <th>Duration</th>
+                    <th>Total Price</th>
+                    <th>Owner Contact</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <td>{{ b.booking_date }}</td>
+                    <td class="fw-bold">{{ b.model }}</td>
+                    <td>{{ b.work_type }}</td>
+                    <td>{{ b.duration_value }} {{ b.duration_type }}</td>
+                    <td class="fw-bold text-success">₹{{ b.total_price }}</td>
+                    <td>{{ b.owner_name }} ({{ b.contact_number }})</td>
+                    <td>
+                        {% if b.status == 'Pending' %}
+                            <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split me-1"></i>Pending</span>
+                        {% elif b.status == 'Accepted' %}
+                            <span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i>Accepted</span>
+                        {% else %}
+                            <span class="badge bg-danger"><i class="bi bi-x-circle-fill me-1"></i>Rejected</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">You haven't booked any tractors yet. <a href="{{ url_for('index') }}" class="fw-bold text-decoration-none">Find tractors here.</a></div>
+{% endif %}
+{% endblock %}

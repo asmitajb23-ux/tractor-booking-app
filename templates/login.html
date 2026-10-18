@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 p-4">
+            <h3 class="fw-bold text-center text-success mb-3">Login to AgriRent</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                        <input type="text" name="phone" class="form-control" placeholder="10-digit mobile" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-agri w-100 fw-bold py-2">Sign In</button>
+            </form>
+            <div class="text-center mt-3 small">
+                Don't have an account? <a href="{{ url_for('register') }}" class="text-success fw-bold">Register here</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

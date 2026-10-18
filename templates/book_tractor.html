@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0 p-4">
+            <h3 class="fw-bold text-success mb-2">Book: {{ tractor.model }} ({{ tractor.hp }} HP)</h3>
+            <p class="text-muted">Owner contact: {{ tractor.contact_number }} | Location: {{ tractor.location }}</p>
+            <hr>
+
+            <form method="POST" id="bookingForm">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Work Date</label>
+                    <input type="date" name="booking_date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Work Type</label>
+                    <select name="work_type" class="form-select" required>
+                        <option value="Plowing">Plowing / Tilling</option>
+                        <option value="Sowing">Sowing / Seeding</option>
+                        <option value="Harvesting">Harvesting</option>
+                        <option value="Haulage">Haulage / Transport</option>
+                        <option value="Other">Other Agricultural Work</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Billing Unit</label>
+                        <select name="duration_type" id="durationType" class="form-select">
+                            <option value="hours" selected>Hours (₹{{ tractor.price_per_hour }}/hr)</option>
+                            <option value="acres">Acres (₹{{ tractor.price_per_acre }}/acre)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Quantity (Hours or Acres)</label>
+                        <input type="number" step="0.5" min="1" id="durationValue" name="duration_value" class="form-control" value="2" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Field Address & Additional Instructions</label>
+                    <textarea name="notes" class="form-control" rows="2" placeholder="Describe landmark, soil condition, etc."></textarea>
+                </div>
+
+                <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">Estimated Total:</span>
+                    <span class="fs-4 fw-bold text-success" id="totalEstimate">₹0</span>
+                </div>
+
+                <button type="submit" class="btn btn-agri w-100 fw-bold py-2">Confirm & Submit Request</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const pricePerHour = {{ tractor.price_per_hour }};
+    const pricePerAcre = {{ tractor.price_per_acre }};
+    const durationType = document.getElementById('durationType');
+    const durationValue = document.getElementById('durationValue');
+    const totalEstimate = document.getElementById('totalEstimate');
+
+    function calculateTotal() {
+        const val = parseFloat(durationValue.value) || 0;
+        const rate = (durationType.value === 'hours') ? pricePerHour : pricePerAcre;
+        totalEstimate.innerText = '₹' + (rate * val).toFixed(2);
+    }
+
+    durationType.addEventListener('change', calculateTotal);
+    durationValue.addEventListener('input', calculateTotal);
+    calculateTotal();
+</script>
+{% endblock %}

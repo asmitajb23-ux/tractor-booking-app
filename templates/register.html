@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 p-4">
+            <h3 class="fw-bold text-center text-success mb-3">Create an Account</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">I want to:</label>
+                    <div class="d-flex gap-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="roleFarmer" value="farmer" checked>
+                            <label class="form-check-label fw-semibold" for="roleFarmer">Rent Tractors (Farmer)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="roleOwner" value="owner">
+                            <label class="form-check-label fw-semibold" for="roleOwner">List My Tractor (Owner)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Full Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Phone Number</label>
+                    <input type="tel" name="phone" class="form-control" placeholder="10-digit phone number" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Email Address (Optional)</label>
+                    <input type="email" name="email" class="form-control" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Create a strong password" required>
+                </div>
+                <button type="submit" class="btn btn-agri w-100 fw-bold py-2">Create Account</button>
+            </form>
+            <div class="text-center mt-3 small">
+                Already registered? <a href="{{ url_for('login') }}" class="text-success fw-bold">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

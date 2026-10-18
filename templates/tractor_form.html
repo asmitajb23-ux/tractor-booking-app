@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0 p-4">
+            <h3 class="fw-bold text-success mb-3">{{ action }} Tractor Listing</h3>
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label fw-bold">Tractor Make & Model</label>
+                        <input type="text" name="model" class="form-control" placeholder="e.g. Mahindra 575 DI" value="{{ tractor.model if tractor else '' }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">Horsepower (HP)</label>
+                        <input type="number" name="hp" class="form-control" placeholder="45" value="{{ tractor.hp if tractor else '' }}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Price per Hour (₹)</label>
+                        <input type="number" step="10" name="price_per_hour" class="form-control" placeholder="700" value="{{ tractor.price_per_hour if tractor else '' }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Price per Acre (₹)</label>
+                        <input type="number" step="10" name="price_per_acre" class="form-control" placeholder="1200" value="{{ tractor.price_per_acre if tractor else '' }}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Location (Village / Taluka)</label>
+                        <input type="text" name="location" class="form-control" placeholder="e.g. Baramati" value="{{ tractor.location if tractor else '' }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Contact Number</label>
+                        <input type="tel" name="contact_number" class="form-control" placeholder="Phone to receive calls" value="{{ tractor.contact_number if tractor else session.get('user_phone', '') }}" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Equipment & Implements Available</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Includes rotavator, cultivator, 2-bottom reversible plough, etc.">{{ tractor.description if tractor else '' }}</textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-agri fw-bold flex-grow-1">{{ action }} Listing</button>
+                    <a href="{{ url_for('owner_dashboard') }}" class="btn btn-light border">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
